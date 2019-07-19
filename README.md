@@ -1,14 +1,12 @@
-Intro.
-
 This repository contains the terraform script. This script is set of deployment artifacts using terraform scripts which form a 3-tier architecture template to make it simple an orchestration engine (infrastructure as code). It allows you to deploy an example 3 tier architecture infrastructure environment (Level 0) and workload environments capable of hosting VM (Level 1). 
 Pattern – Three Tire architecture deployment using terraform
 
-Three Tire architecture deployment given below diagram provide detail representation of the terraform script outcome
-Step 1: Build and Deploy baseline state with network component 
+## Three Tire architecture deployment given below diagram provide detail representation of the terraform script outcome
+* Step 1: Build and Deploy baseline state with network component 
  
-Terraform script folder structure 
-Below snapshot provide folder structure of terraform scripts.  
--	Common-modules 
+* Terraform script folder structure 
+* Below snapshot provide folder structure of terraform scripts.  
+	Common-modules 
 o	Resource Group
 -	Level 0 
 o	Azure resources
