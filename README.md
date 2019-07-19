@@ -2,6 +2,9 @@ This repository contains the terraform script. This script is set of deployment 
 Pattern – Three Tire architecture deployment using terraform
 
 ## Three Tire architecture deployment given below diagram provide detail representation of the terraform script outcome
+
+* Architecture ![alt text](https://github.com/mofaizal/Azure-Terraform/blob/master/images/image002.png) 
+
 * Step 1: Build and Deploy baseline state with network component 
  
 * Terraform script folder structure 
@@ -32,6 +35,8 @@ b.	Terraform Plan
 c.	Terraform Apply
 Terraform TFVAR input required
 Update TFVAR file at Level 0 folder as per your requirements, You don’t required update any other terraform modules input parameters. Script will fetch from TFVAR and Terraform output state.  
+
+```
 # Name for the environment
 environment                              = "dev"
 
@@ -62,6 +67,8 @@ tagvalue                           =  {
 
       environment                  = "Development"
 }  
+
+```
 
 Resource Naming standard 
 The resource naming standard automated, the pattern for forming the name given below 
