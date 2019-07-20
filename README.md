@@ -14,18 +14,18 @@ Pattern – Three Tire architecture deployment using terraform
 #### Terraform script folder structure 
 Below snapshot provide folder structure of terraform scripts.  
 - Common-modules 
-... Resource Group
+  * Resource Group
 -	Level 0 
-... Azure resources
-Abstract resource layer
-... VNET
-... Subnet 
-... NSG
-... NSG association
-... Route Table 
-... Route table association
-... VNET peering 
-... Main Module (abstract layer)
+  * Azure resources
+- Abstract resource layer
+* VNET
+* Subnet 
+* NSG
+* NSG association
+* Route Table 
+* Route table association
+* VNET peering 
+* Main Module (abstract layer)
 
 ### Steps to run terraform script 
 #### Level 0 Pre-Requisites
@@ -38,9 +38,9 @@ az account set –subscription “subscription_name”
 ```
 #### Level 0 Execution Steps
 1.	Execute terraform script using below commands
-... Terraform Init
-... Terraform Plan
-... Terraform Apply
+* Terraform Init
+*  Terraform Plan
+* Terraform Apply
 
 #### Terraform TFVAR input required
 
@@ -92,30 +92,37 @@ Example Rg-dev-project1
   name             = "${lower("rg-${var.environment}-${var.resource_group_name}")}"
 ```
 
-* Level 1 
-* Step 2: Deploy VM and project related items. 
+
+### Step 2: Deploy VM and project related items. 
+#### Level 1 
 
 * Architecture ![alt text](https://github.com/mofaizal/Azure-Terraform/blob/master/images/image004.png) 
  
 
-Terraform script folder structure for step 2
-Below snapshot provide folder structure of terraform scripts.  
+#### Terraform script folder structure for step 2
+
+#### Below snapshot provide folder structure of terraform scripts.  
+
 -	Application Layer
 -	NIC
 -	Public IP
 -	Virtual Machine
-Level 1 Pre-Requisites
+
+#### Level 1 Pre-Requisites
 1.	Ensure Level 1 terraform.tfvars is configured properly. 
 2.	Ensure All components of Level 0 are created
 3.	User who logs in to run Level 1 script should have “Owner” rights
 4.	Login in interactive mode using az login 
 5.	set the subscription using command az account set –subscription “subscription_name”
-Level 0 Execution Steps
+
+#### Level 1 Execution Steps
 1.	Execute terraform script using below commands
-a.	Terraform Init
-b.	Terraform Plan
-c.	Terraform Apply
-Terraform TFVAR input required
+* Terraform Init
+*  Terraform Plan
+* Terraform Apply
+
+#### Terraform TFVAR input required
+
 Update TFVAR file at Level 1 folder as per your requirements, You don’t required update any other terraform modules input parameters. Script will fetch from TFVAR and Terraform output state. 
 
 ```
