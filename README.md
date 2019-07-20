@@ -70,17 +70,22 @@ tagvalue                           =  {
 
 ```
 
-Resource Naming standard 
+#### Resource Naming standard 
+
 The resource naming standard automated, the pattern for forming the name given below 
 -	First two or three letter of resource item name = rg 
 -	Environment = DEV
 -	Resource Name = Resource Group Name
 Example Rg-dev-project1
+
+```
   name             = "${lower("rg-${var.environment}-${var.resource_group_name}")}"
+```
 
-Level 1 
-Step 2: Deploy VM and project related items. 
+* Level 1 
+* Step 2: Deploy VM and project related items. 
 
+* Architecture ![alt text](https://github.com/mofaizal/Azure-Terraform/blob/master/images/image004.png) 
  
 
 Terraform script folder structure for step 2
@@ -101,10 +106,14 @@ a.	Terraform Init
 b.	Terraform Plan
 c.	Terraform Apply
 Terraform TFVAR input required
-Update TFVAR file at Level 1 folder as per your requirements, You don’t required update any other terraform modules input parameters. Script will fetch from TFVAR and Terraform output state.  
+Update TFVAR file at Level 1 folder as per your requirements, You don’t required update any other terraform modules input parameters. Script will fetch from TFVAR and Terraform output state. 
+
+```
+
 # Parameter for Creating Azure Resources
 resource_group_name                         = "networking"
 region                                      = "Southeast Asia"
+
 
 
 # Parameter for Create Virtual network and Subnets
@@ -143,16 +152,18 @@ managed_disk_type                           = "Standard_LRS"
 computer_name                               = "hostname"
 admin_username                              = "vm-admin"
 admin_password                              = "Welcome1234!"
+```
 
-
-Terraform modules 
-Resource Group Module 
+## Terraform modules 
+#### Resource Group Module 
 A resource group is a logical construct that groups multiple resources together so they can be managed as a single entity which allow you assign RBAC and allow you to calculate resource cost.
-Name	Type / Component	Description
-Module	resource-group	Creates a resource group on Azure
+
+|Name           	| Type / Component	            | Description               |
+|Module	| resource-group	| Creates a resource group on Azure | 
 
 Input 
-Name	Type	Default Value	Example	Description
+
+| Name	Type	|Default Value	| Example	Description |   
 rg_enable	Integer	1	1	Enabling or Disabling the Resource group
 resource_group_name	String	Empty	Networking	Name of the Resource group
 Region	String	Empty	Southeast Asia	Location of the Resource group
