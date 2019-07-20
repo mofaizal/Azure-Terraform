@@ -158,24 +158,24 @@ admin_password                              = "Welcome1234!"
 #### Resource Group Module 
 A resource group is a logical construct that groups multiple resources together so they can be managed as a single entity which allow you assign RBAC and allow you to calculate resource cost.
 
-|Name           	| Type / Component	            | Description               |
-|Module	| resource-group	| Creates a resource group on Azure | 
+|    Name      |    Type   / Component    |    Description                            |
+|--------------|--------------------------|-------------------------------------------|
+|    Module    |    resource-group        |    Creates   a resource group on Azure    |
 
 Input 
 
-| Name	Type	|Default Value	| Example	Description |   
-rg_enable	Integer	1	1	Enabling or Disabling the Resource group
-resource_group_name	String	Empty	Networking	Name of the Resource group
-Region	String	Empty	Southeast Asia	Location of the Resource group
-Tagvalue	Map	Empty	tagvalue                              = 
-{     
-client_segment                     = ""
-}	List of tag values to be attached 
-Environment	String	Empty	Dev	Environment 
-
+|    Name                   |    Type       |    Default Value    |    Example                                                                                                |    Description                                   |
+|---------------------------|---------------|---------------------|-----------------------------------------------------------------------------------------------------------|--------------------------------------------------|
+|    rg_enable              |    Integer    |    1                |    1                                                                                                      |    Enabling   or Disabling the Resource group    |
+|    resource_group_name    |    String     |    Empty            |    Networking                                                                                             |    Name of the Resource group                    |
+|    Region                 |    String     |    Empty            |    Southeast   Asia                                                                                       |    Location   of the Resource group              |
+|    Tagvalue               |    Map        |    Empty            |    tagvalue                                =    {        client_segment                       = ""   }    |    List of tag values to be attached             |
+|    Environment            |    String     |    Empty            |    Dev                                                                                                    |    Environment                                   |
 Output
-Name	Type	Description
-resource_group_name	String	Names of the Resource group
+
+|    Name                   |    Type      |    Description                      |
+|---------------------------|--------------|-------------------------------------|
+|    resource_group_name    |    String    |    Names   of the Resource group    |
 
 VNET Module 
 VNET module creates a Virtual Network in a subscription. User with Owner or contributor rights would be required to create a VNET. VNet enables many types of Azure resources, such as Azure Virtual Machines (VM), to securely communicate with each other, the internet, and on-premises networks.
