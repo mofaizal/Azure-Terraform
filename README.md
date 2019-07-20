@@ -28,7 +28,7 @@ Abstract resource layer
 ... Main Module (abstract layer)
 
 ### Steps to run terraform script 
-####Level 0 Pre-Requisites
+#### Level 0 Pre-Requisites
 1.	Ensure Level 0 terraform.tfvars is configured properly. 
 2.	User who logs in to run Level 0 script should have “Owner” rights
 3.	Login in interactive mode using az login 
@@ -220,141 +220,152 @@ VNET module creates a Virtual Network in a subscription. User with Owner or cont
 |    vnet_id                |    List    |    ID   allocated for the Vnet                  |
 
 
-Subnet Module
+#### Subnet Module
 Subnet module creates a Subnet in a subscription. User with Owner rights or Contributor rights would be required to create a subnet. Subnets enable to segment the virtual network into one or more sub-networks and allocate a portion of the virtual network's address space to each subnet
-Name	Type / Component	Description
-Module	subnet	Creates Subnet inside the specified vnet
 
-Input 
-Name	Type	Default Value	Example	Description
-Subnet_count	Numeric	Empty	1	Number of subnet to be created
-Vnet_name	String 	Empty	vnet-dev-project1
-	Virtual network name
-Subnet_names	List	Empty	[“Web”,”App”,”DB”]	Name of the subnet
-Subnet_range	List	Empty	["10.110.0.0/24",”10.120.0.0/24”]
-	CIDR Rage of subnet
-resource_group_name
-	String	Empty	rg-dev-networking
-	Name of the resource group where subnet resource gets created
-Service_endpoint_enable	Integer	1	1	Create or Not to Create service endpoint  based on this value
-Service_endpoints	Array	Empty	[“Microsoft.sql”]	Service endpoints to be enabled
-Service	List	["0","0","1"]	[1“0”,”0”,”1”]	Name of the services
-Environment	String	Empty	dev	Name of the environment
+|    Name      |    Type   / Component    |    Description                                   |
+|--------------|--------------------------|--------------------------------------------------|
+|    Module    |    subnet                |    Creates   Subnet inside the specified vnet    |
 
-Output
-Name	Type	Description
-Vnet_subnets	List	Name of subnets
-Subnet_id	List	Id of subnets
-resource_group_name	List	Resource group names
+#### Input 
+
+|    Name                       |    Type       |    Default Value    |    Example                                  |    Description                                                        |
+|-------------------------------|---------------|---------------------|---------------------------------------------|-----------------------------------------------------------------------|
+|    Subnet_count               |    Numeric    |    Empty            |    1                                        |    Number   of subnet to be created                                   |
+|    Vnet_name                  |    String     |    Empty            |    vnet-dev-project1                        |    Virtual network name                                               |
+|    Subnet_names               |    List       |    Empty            |    [“Web”,”App”,”DB”]                       |    Name   of the subnet                                               |
+|    Subnet_range               |    List       |    Empty            |    ["10.110.0.0/24",”10.120.0.0/24”]        |    CIDR Rage of subnet                                                |
+|    resource_group_name        |    String     |    Empty            |    rg-dev-networking                        |    Name   of the resource group where subnet resource gets created    |
+|    Service_endpoint_enable    |    Integer    |    1                |    1                                        |    Create or Not to Create service endpoint  based on this value      |
+|    Service_endpoints          |    Array      |    Empty            |    [“Microsoft.sql”]                        |    Service   endpoints to be enabled                                  |
+|    Service                    |    List       |    ["0","0","1"]    |    [1“0”,”0”,”1”]                           |    Name of the services                                               |
+|    Environment                |    String     |    Empty            |    dev                                      |    Name   of the environment                                          |
+
+### Output
+
+|    Name            |    Type    |    Description          |
+|--------------------|------------|-------------------------|
+|    Vnet_subnets    |    List    |    Name   of subnets    |
+|    Subnet_id       |    List    |    Id of subnets        |
 		
 
-NSG Module 
+### NSG Module 
 A network security groups contains list of security rules to allow or deny network traffic to resources connected to the virtual networks.
-Name	Type / Component	Description
-Module	Nsg	Creates a network security group that contains a list of network security rules
 
-Input 
-Name	Type	Default Value	Example	Description
-nsg_enable	Integer	Empty	 1	Enabling or Disabling the NSG Flag
-resource_group_name	String	Empty	rg-dev-networking	Name of the Resource group where NSG is to be created
-Region	String	Empty	Southeast Asia	Name of the Region where the NSG is to be created
-nsg_name	List	Empty	[Web, App, DB]	Names for the NSGs
-tagValue	Map	Empty	tagvalue                              = 
-{     
-client_segment                     = ""
-}	List of tag values to be attached 
-environment	String	Empty	dev	Environment name 
+|    Name      |    Type   / Component    |    Description                                                                          |
+|--------------|--------------------------|-----------------------------------------------------------------------------------------|
+|    Module    |    Nsg                   |    Creates   a network security group that contains a list of network security rules    |
+|              |                          |                                                                                         |
 
-Output
-Name	Type	Description
-nsg_id	List	ID of NSGs created
-nsg_names	List	Name of the NSGs created
+### Input 
+|    Name                   |    Type       |    Default Value    |    Example                                                                                            |    Description                                              |
+|---------------------------|---------------|---------------------|-------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+|    nsg_enable             |    Integer    |    Empty            |     1                                                                                                 |    Enabling   or Disabling the NSG Flag                     |
+|    resource_group_name    |    String     |    Empty            |    rg-dev-networking                                                                                  |    Name of the Resource group where NSG is to be created    |
+|    Region                 |    String     |    Empty            |    Southeast   Asia                                                                                   |    Name   of the Region where the NSG is to be created      |
+|    nsg_name               |    List       |    Empty            |    [Web, App, DB]                                                                                     |    Names for the NSGs                                       |
+|    tagValue               |    Map        |    Empty            |    tagvalue                              =    {        client_segment                     = ""   }    |    List   of tag values to be attached                      |
+|    environment            |    String     |    Empty            |    dev                                                                                                |    Environment name                                         |
+### Output
 
-NSG Rules Module
+|    Name         |    Type    |    Description                 |
+|-----------------|------------|--------------------------------|
+|    nsg_id       |    List    |    ID   of NSGs created        |
+|    nsg_names    |    List    |    Name of the NSGs created    |
+
+### NSG Rules Module
 A network security group contains network security rules to enforce the network policies.
-Name	Type / Component	Description
-Module	nsg-rules	Creates the network security rules
 
-Input 
+|    Name      |    Type   / Component    |    Description                             |
+|--------------|--------------------------|--------------------------------------------|
+|    Module    |    nsg-rules             |    Creates   the network security rules    |
+
+### Input 
+
 Name	Type	Default Value	Example	Description
 resource_group_name	String	Empty	rg-dev-networking	Name of the Resource group where NSG is to be created
 nsg_name	List	Empty	[nsg-dev-web,nsg-dev-app]	Names for the NSGs
 nsg_rules	List	Empty	[Allow_Internet_Inbound,Deny_Virtual_Network_Outbound]	Rules for Network security group
 
-NSG Association Module 
+### NSG Association Module 
 
 Nsg-association module is used to associate the network security group with the respective subnet 
-Name	Type / Component	Description
-Module	Nsg-association	Associates the Network Security Group with a subnet within a Vnet
 
-Input 
-Name	Type	Default Value	Example	Description
-subnet_id	List	Empty		ID allocated for the Subnet
-nsg_id	List	Empty		ID allocated for the NSG
-nsg_enable	Integer	Empty	1	Enabling or Disabling the NSG
-subnet_count	Integer	Empty	3	Count of the Subnet
+|    Name      |    Type   / Component    |    Description                                                            |
+|--------------|--------------------------|---------------------------------------------------------------------------|
+|    Module    |    Nsg-association       |    Associates   the Network Security Group with a subnet within a Vnet    |
 
-Route Table Module 
+### Input 
+|    Name            |    Type       |    Default Value    |    Example    |    Description                        |
+|--------------------|---------------|---------------------|---------------|---------------------------------------|
+|    subnet_id       |    List       |    Empty            |               |    ID   allocated for the Subnet      |
+|    nsg_id          |    List       |    Empty            |               |    ID allocated for the NSG           |
+|    nsg_enable      |    Integer    |    Empty            |    1          |    Enabling   or Disabling the NSG    |
+|    subnet_count    |    Integer    |    Empty            |    3          |    Count of the Subnet                |
+
+### Route Table Module 
 A route table contains a set of rules, called routes, that specifies how packets should be routed in a virtual network
-Name	Type / Component	Description
-Module	routetable	Creates a Route Table
 
-Input 
-Name	Type	Default Value	Example	Description
-rt_enable	Integer	Empty	1	Enabling or Disabling the Route Table
-subnet_count	Integer	Empty	3	Subnet count to be used for creating Route table
-rt_name	List	Empty	[“Web”,”App”,”DB”]	Name of the Route Table
-resource_group_name	String	Empty	rg-dev-networking	Name of the Resource group of the Route table
-Region	String	Empty	Southeast Asia	Location of the Resource group
-Tagvalue	Map	Empty	tagvalue                              = 
-{     
-client_segment                     = ""
-}	List of tag values to be attached 
-environment	String	Empty	Dev	Environment Name
+|    Name      |    Type   / Component    |    Description                |
+|--------------|--------------------------|-------------------------------|
+|    Module    |    routetable            |    Creates   a Route Table    |
 
-Output
-Name	Type	Description
-rt_id	List	IDs of the Route table created
-rt_name	List	Names of the Route Table created
+### Input 
 
-Route Table association Module
+|    Name                   |    Type       |    Default Value    |    Example                                                                                                |    Description                                         |
+|---------------------------|---------------|---------------------|-----------------------------------------------------------------------------------------------------------|--------------------------------------------------------|
+|    rt_enable              |    Integer    |    Empty            |    1                                                                                                      |    Enabling   or Disabling the Route Table             |
+|    subnet_count           |    Integer    |    Empty            |    3                                                                                                      |    Subnet count to be used for creating Route table    |
+|    rt_name                |    List       |    Empty            |    [“Web”,”App”,”DB”]                                                                                     |    Name   of the Route Table                           |
+|    resource_group_name    |    String     |    Empty            |    rg-dev-networking                                                                                      |    Name of the Resource group of the Route table       |
+|    Region                 |    String     |    Empty            |    Southeast   Asia                                                                                       |    Location   of the Resource group                    |
+|    Tagvalue               |    Map        |    Empty            |    tagvalue                                =    {        client_segment                       = ""   }    |    List of tag values to be attached                   |
+|    environment            |    String     |    Empty            |    Dev                                                                                                    |    Environment   Name                                  |
+
+
+### Route Table association Module
 Route-table-association module associates the route table with the specified subnet
 
-Name	Type / Component	Description
-Module	Routetable-association	Associating route table with a subnet within a Vnet
+|    Name      |    Type   / Component        |    Description                                              |
+|--------------|------------------------------|-------------------------------------------------------------|
+|    Module    |    Routetable-association    |    Associating   route table with a subnet within a Vnet    |
 
-Input 
-Name	Type	Default Value	Example	Description
-rt_id	List	Empty		ID allocated for the Route table
-subnet_id	List	Empty		ID allocated for the subnet
-rt_enable	Integer	Empty	1	Enabling or Disabling the Route table
-subnet_count	Integer	Empty	2	Count of the Subnets 
+### Input 
 
-VNET Peering Module 
+|    Name            	|    Type       	|    Default Value    	|    Example    	|    Description                                	|
+|--------------------	|---------------	|---------------------	|---------------	|-----------------------------------------------	|
+|    rt_id           	|    List       	|    Empty            	|               	|    ID   allocated for the Route table         	|
+|    subnet_id       	|    List       	|    Empty            	|               	|    ID allocated for the subnet                	|
+|    rt_enable       	|    Integer    	|    Empty            	|    1          	|    Enabling   or Disabling the Route table    	|
+|    subnet_count    	|    Integer    	|    Empty            	|    2          	|    Count of the Subnets                       	|
+
+### VNET Peering Module 
 VNet peering is a mechanism that connects two virtual networks (VNets) in the same region through the Azure backbone network. Once peered, the two virtual networks appear as one for all connectivity purposes
 
-Name	Type / Component	Description
-Module	Vnet-peering	Creates a Vnet peering which allows resources to access other resources in the linked Vnet
-
-Input 
-Name	Type	Default Value	Example	Description
-resource_group_name	String	Empty	rg-dev-networking	Name of the Resource group for vnet
-Region	String	Empty	Southeast Asia	Region 
-environment	String	Empty	dev	Environment name 
-vnet_peering_enable	Integer	Empty	1	Enabling or Disabling the Vnet peering
-vnet_name	List	Empty	[“vnet-dev-project1”,”vnet-dev- project2”]	Name of the Vnets
-allow_virtual_network_access	String 	False	False	Allow or Disallow the access for the Vnet
-allow_forwarded_traffic	String	False	false	Allow or Disallow the forwarded traffic
-allow_gateway_transit	String	False	false	Allow or Disallow the gateway transit
-use_remote_gateways	String	False	false	Allow or Disallow the use of remote gateways
-vnet_id	String	Empty		Id of the Vnet
-vnet1_id	String	Empty		Id of the Vnet-1
-bastion_resource_group	String	Empty	rg-dev-networking	Resource group of the bastion
-tenant_id	String	Empty	xxxx-xxxx-xxx-xxx	ID of the Tenant
-subscription_id	String	Empty	Xxxx-xxxx-xxxx-xxx	ID of the Subscription
-env_subscription_id	String	Empty	Xxxx-xxx-xxx-xxx	ID of the Subscription in the environment
+|    Name      |    Type   / Component    |    Description                                                                                       |
+|--------------|--------------------------|------------------------------------------------------------------------------------------------------|
+|    Module    |    Vnet-peering          |    Creates   a Vnet peering which allows resources to access other resources in the linked   Vnet    |
 
 
+### Input 
+
+|    Name                            	|    Type       	|    Default Value    	|    Example                                         	|    Description                                       	|
+|------------------------------------	|---------------	|---------------------	|----------------------------------------------------	|------------------------------------------------------	|
+|    resource_group_name             	|    String     	|    Empty            	|    rg-dev-networking                               	|    Name   of the Resource group for vnet             	|
+|    Region                          	|    String     	|    Empty            	|    Southeast Asia                                  	|    Region                                            	|
+|    environment                     	|    String     	|    Empty            	|    dev                                             	|    Environment   name                                	|
+|    vnet_peering_enable             	|    Integer    	|    Empty            	|    1                                               	|    Enabling or Disabling the Vnet peering            	|
+|    vnet_name                       	|    List       	|    Empty            	|    [“vnet-dev-project1”,”vnet-dev-   project2”]    	|    Name   of the Vnets                               	|
+|    allow_virtual_network_access    	|    String     	|    False            	|    False                                           	|    Allow or Disallow the access for the Vnet         	|
+|    allow_forwarded_traffic         	|    String     	|    False            	|    false                                           	|    Allow   or Disallow the forwarded traffic         	|
+|    allow_gateway_transit           	|    String     	|    False            	|    false                                           	|    Allow or Disallow the gateway transit             	|
+|    use_remote_gateways             	|    String     	|    False            	|    false                                           	|    Allow   or Disallow the use of remote gateways    	|
+|    vnet_id                         	|    String     	|    Empty            	|                                                    	|    Id of the Vnet                                    	|
+|    vnet1_id                        	|    String     	|    Empty            	|                                                    	|    Id   of the Vnet-1                                	|
+|    bastion_resource_group          	|    String     	|    Empty            	|    rg-dev-networking                               	|    Resource group of the bastion                     	|
+|    tenant_id                       	|    String     	|    Empty            	|    xxxx-xxxx-xxx-xxx                               	|    ID   of the Tenant                                	|
+|    subscription_id                 	|    String     	|    Empty            	|    Xxxx-xxxx-xxxx-xxx                              	|    ID of the Subscription                            	|
+|    env_subscription_id             	|    String     	|    Empty            	|    Xxxx-xxx-xxx-xxx                                	|    ID   of the Subscription in the environment       	|
 
 
 # Azure-Terraform
