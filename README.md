@@ -1,39 +1,49 @@
+
+# Azure Terraform Three Tire architecture deployment pattern
+
 This repository contains the terraform script. This script is set of deployment artifacts using terraform scripts which form a 3-tier architecture template to make it simple an orchestration engine (infrastructure as code). It allows you to deploy an example 3 tier architecture infrastructure environment (Level 0) and workload environments capable of hosting VM (Level 1). 
 Pattern – Three Tire architecture deployment using terraform
 
 ## Three Tire architecture deployment given below diagram provide detail representation of the terraform script outcome
 
-* Architecture ![alt text](https://github.com/mofaizal/Azure-Terraform/blob/master/images/image002.png) 
+#### Architecture 
+![alt text](https://github.com/mofaizal/Azure-Terraform/blob/master/images/image002.png) 
 
-* Step 1: Build and Deploy baseline state with network component 
+### Step 1: Build and Deploy baseline state with network component 
  
-* Terraform script folder structure 
-* Below snapshot provide folder structure of terraform scripts.  
-	Common-modules 
-o	Resource Group
+#### Terraform script folder structure 
+Below snapshot provide folder structure of terraform scripts.  
+- Common-modules 
+... Resource Group
 -	Level 0 
-o	Azure resources
-	Abstract resource layer
-	VNET
-	Subnet 
-	NSG
-	NSG association
-	Route Table 
-	Route table association
-	VNET peering 
-o	Main Module (abstract layer)
-Steps to run terraform script 
-Level 0 Pre-Requisites
+... Azure resources
+Abstract resource layer
+... VNET
+... Subnet 
+... NSG
+... NSG association
+... Route Table 
+... Route table association
+... VNET peering 
+... Main Module (abstract layer)
+
+### Steps to run terraform script 
+####Level 0 Pre-Requisites
 1.	Ensure Level 0 terraform.tfvars is configured properly. 
 2.	User who logs in to run Level 0 script should have “Owner” rights
 3.	Login in interactive mode using az login 
-4.	set the subscription using command  az account set –subscription “subscription_name”
-Level 0 Execution Steps
+4.	set the subscription using command  
+```
+az account set –subscription “subscription_name”
+```
+#### Level 0 Execution Steps
 1.	Execute terraform script using below commands
-a.	Terraform Init
-b.	Terraform Plan
-c.	Terraform Apply
-Terraform TFVAR input required
+... Terraform Init
+... Terraform Plan
+... Terraform Apply
+
+#### Terraform TFVAR input required
+
 Update TFVAR file at Level 0 folder as per your requirements, You don’t required update any other terraform modules input parameters. Script will fetch from TFVAR and Terraform output state.  
 
 ```
@@ -162,7 +172,7 @@ A resource group is a logical construct that groups multiple resources together 
 |--------------|--------------------------|-------------------------------------------|
 |    Module    |    resource-group        |    Creates   a resource group on Azure    |
 
-Input 
+#### Input 
 
 |    Name                   |    Type       |    Default Value    |    Example                                                                                                |    Description                                   |
 |---------------------------|---------------|---------------------|-----------------------------------------------------------------------------------------------------------|--------------------------------------------------|
@@ -171,42 +181,44 @@ Input
 |    Region                 |    String     |    Empty            |    Southeast   Asia                                                                                       |    Location   of the Resource group              |
 |    Tagvalue               |    Map        |    Empty            |    tagvalue                                =    {        client_segment                       = ""   }    |    List of tag values to be attached             |
 |    Environment            |    String     |    Empty            |    Dev                                                                                                    |    Environment                                   |
-Output
+
+#### Output
 
 |    Name                   |    Type      |    Description                      |
 |---------------------------|--------------|-------------------------------------|
 |    resource_group_name    |    String    |    Names   of the Resource group    |
 
-VNET Module 
+#### VNET Module 
 VNET module creates a Virtual Network in a subscription. User with Owner or contributor rights would be required to create a VNET. VNet enables many types of Azure resources, such as Azure Virtual Machines (VM), to securely communicate with each other, the internet, and on-premises networks.
-Name	Component	Description
-Module	VNET	Creates the Virtual Network
-Module Type	Common	Common module reused in across many terraform project or abstract layers
 
-Input 
-Name	Type	Default Value	Example	Description
-resource_group_name	String	Empty	rg-dev-networking
-	Name of the resource group where VNET resource gets created
-Region	String	Empty	Southeast Asia
-	Location on which vnet to be created
-vnet_enable	Integer	1	1	Create or Not to Create Vnet based on this value
-vnet_name	List	Empty	[“project1”]
-	Virtual network name
-vnet_address	List	Empty	["10.100.0.0/16"]
-	CIDR Rage of Virtual network
-TagValue	Map	Empty	tagvalue                              = 
-{     
-client_segment                     = ""
-}	List of tag values to be attached 
-Environment	String	Empty	dev	Environment name 
+|    Name           |    Component    |    Description                                                                   |
+|-------------------|-----------------|----------------------------------------------------------------------------------|
+|    Module         |    VNET         |    Creates   the Virtual Network                                                 |
+|    Module Type    |    Common       |    Common module reused in across many terraform project or abstract   layers    |
 
-Output
-Name	Type	Description
-Region	List	Region of the Virtual network
-Vnet_name	List	Name of Virtual network 
-vnet_address_space	List	Address space of the newly created Vnet
-resource_group_name	List	Name of the Resource group for Vnet
-vnet_id	List	ID allocated for the Vnet
+
+### Input 
+
+|    Name                   |    Type       |    Default Value    |    Example                                                                                                |    Description                                                      |
+|---------------------------|---------------|---------------------|-----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------|
+|    resource_group_name    |    String     |    Empty            |    rg-dev-networking                                                                                      |    Name   of the resource group where VNET resource gets created    |
+|    Region                 |    String     |    Empty            |    Southeast Asia                                                                                         |    Location on which vnet to be created                             |
+|    vnet_enable            |    Integer    |    1                |    1                                                                                                      |    Create   or Not to Create Vnet based on this value               |
+|    vnet_name              |    List       |    Empty            |    [“project1”]                                                                                           |    Virtual network name                                             |
+|    vnet_address           |    List       |    Empty            |    ["10.100.0.0/16"]                                                                                      |    CIDR   Rage of Virtual network                                   |
+|    TagValue               |    Map        |    Empty            |    tagvalue                                =    {        client_segment                       = ""   }    |    List of tag values to be attached                                |
+|    Environment            |    String     |    Empty            |    dev                                                                                                    |    Environment   name                                               |
+
+#### Output
+
+|    Name                   |    Type    |    Description                                  |
+|---------------------------|------------|-------------------------------------------------|
+|    Region                 |    List    |    Region   of the Virtual network              |
+|    Vnet_name              |    List    |    Name of Virtual network                      |
+|    vnet_address_space     |    List    |    Address   space of the newly created Vnet    |
+|    resource_group_name    |    List    |    Name of the Resource group for Vnet          |
+|    vnet_id                |    List    |    ID   allocated for the Vnet                  |
+
 
 Subnet Module
 Subnet module creates a Subnet in a subscription. User with Owner rights or Contributor rights would be required to create a subnet. Subnets enable to segment the virtual network into one or more sub-networks and allocate a portion of the virtual network's address space to each subnet
