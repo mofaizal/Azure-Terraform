@@ -1,10 +1,10 @@
 
-# Azure Terraform Three Tire architecture deployment pattern
+# Azure Terraform Three Tier architecture deployment pattern
 
 This repository contains the terraform script. This script is set of deployment artifacts using terraform scripts which form a 3-tier architecture template to make it simple an orchestration engine (infrastructure as code). It allows you to deploy an example 3 tier architecture infrastructure environment (Level 0) and workload environments capable of hosting VM (Level 1). 
-Pattern – Three Tire architecture deployment using terraform
+Pattern – Three Tier architecture deployment using terraform
 
-## Three Tire architecture deployment given below diagram provide detail representation of the terraform script outcome
+## Three Tier architecture deployment given below diagram provide detail representation of the terraform script outcome
 
 #### Architecture 
 ![alt text](https://github.com/mofaizal/Azure-Terraform/blob/master/images/image002.png) 
